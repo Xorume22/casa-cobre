@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Casa Cobre, cozinha do mar</title>
+  <meta name="description" content="Casa Cobre é um restaurante fictício de frutos do mar: uma mesa em 3D com quatro pratos servidos em panelas de cobre." />
+  <meta name="theme-color" content="#2a120c" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" href="assets/simbolo.svg" type="image/svg+xml" />
+  <link rel="preload" href="fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/cedo.js"></script>
+</head>
+<body>
+  <a class="pular" href="#cardapio">Pular para o cardápio</a>
+
+  <canvas id="mesa" aria-hidden="true"></canvas>
+  <div id="pontos"></div>
+  <p id="dica-prato" aria-hidden="true"></p>
+  <p id="carga" role="status">Pondo a mesa</p>
+
+  <header class="topo">
+    <a class="marca" href="#abertura" aria-label="Casa Cobre, início">
+      <svg viewBox="-96 -68 192 136" width="46" height="33" aria-hidden="true"><rect x="-96" y="-9" width="34" height="18" rx="9" fill="#c4734f"/><rect x="62" y="-9" width="34" height="18" rx="9" fill="#c4734f"/><circle r="66" fill="#c4734f"/><circle r="55" fill="#2a120c"/><circle r="11" fill="#e8a27c"/></svg>
+      <span>Casa Cobre</span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#casa">A casa</a>
+      <button class="som" id="som" type="button" aria-pressed="false">Som</button>
+      <a class="botao botao-p" href="#reservar">Reservar</a>
+    </nav>
+  </header>
+
+  <nav class="trilho" id="trilho" aria-label="Ir até um prato">
+    <a href="#p-empanado">Empanado</a>
+    <a href="#p-alho">Ao alho</a>
+    <a href="#p-bacalhau">Bacalhau</a>
+    <a href="#p-bombinha">Bombinha</a>
+  </nav>
+
+  <main>
+    <section id="abertura" class="abertura">
+      <h1>Casa Cobre<span class="vh">, cozinha do mar</span></h1>
+      <div class="abertura-txt">
+        <p>Cozinha do mar, servida na panela de cobre.</p>
+        <a class="botao" href="#reservar">Reservar mesa</a>
+      </div>
+    </section>
+
+    <section id="pratos" class="pratos" aria-labelledby="t-pratos">
+      <div class="pratos-intro rev">
+        <h2 id="t-pratos">Quatro pratos, uma mesa só</h2>
+        <p>Continue descendo: a câmera anda pela mesa, de panela em panela, sem cortes. Em cada prato, toque nos pontos de cobre para ver o que vai nele.<span class="so-mouse"> Com o mouse, arraste no fundo para girar em volta do prato.</span></p>
+      </div>
+
+      <article class="prato dir" id="p-empanado" data-parada="1">
+        <div class="ficha rev">
+          <img src="assets/fotos/heroi-close-840.jpg" srcset="assets/fotos/heroi-close-400.jpg 400w, assets/fotos/heroi-close-840.jpg 840w" sizes="(max-width: 760px) 96px, 420px" width="1600" height="1000" decoding="async" alt="Close do camarão empanado na panela de cobre" loading="lazy" />
+          <h3>Camarão empanado</h3>
+          <p>Seis camarões em crosta dourada sobre arroz cremoso, com ervilha, cenoura e batata palha no centro da panela.</p>
+          <p class="gesto">Toque num camarão para ele pular<span class="so-mouse">; com o mouse, arraste-o para passar no creme</span>. Segure no molho para subir o fogo e toque na alça para inclinar a panela.</p>
+        </div>
+      </article>
+
+      <article class="prato esq" id="p-alho" data-parada="2">
+        <div class="ficha rev">
+          <img src="assets/fotos/alho-3-4-840.jpg" srcset="assets/fotos/alho-3-4-400.jpg 400w, assets/fotos/alho-3-4-840.jpg 840w" sizes="(max-width: 760px) 96px, 420px" width="1600" height="1000" decoding="async" alt="Camarões ao alho na panelinha de cobre sobre prato branco" loading="lazy" />
+          <h3>Camarão ao alho</h3>
+          <p>Camarões selados na panelinha, no molho de alho dourado, com lascas de alho e salsinha por cima.</p>
+          <p class="gesto">Toque num camarão para ele pular<span class="so-mouse">; com o mouse, arraste-o pelo molho</span>. Segure no molho para subir o fogo e toque na alça para inclinar a panela.</p>
+        </div>
+      </article>
+
+      <article class="prato dir" id="p-bacalhau" data-parada="3">
+        <div class="ficha rev">
+          <img src="assets/fotos/bacalhau-close-840.jpg" srcset="assets/fotos/bacalhau-close-400.jpg 400w, assets/fotos/bacalhau-close-840.jpg 840w" sizes="(max-width: 760px) 96px, 420px" width="1600" height="1000" decoding="async" alt="Close do bacalhau desfiado com azeitonas pretas" loading="lazy" />
+          <h3>Bacalhau à Brás</h3>
+          <p>Bacalhau desfiado com ovo cremoso sobre uma cama de batata palha, azeitonas pretas e salsinha.</p>
+          <p class="gesto">Toque no prato para a batata palha pular.<span class="so-mouse"> Com o mouse, arraste para mexer como com um garfo.</span></p>
+        </div>
+      </article>
+
+      <article class="prato esq" id="p-bombinha" data-parada="4">
+        <div class="ficha rev">
+          <img src="assets/fotos/bombinha-close-840.jpg" srcset="assets/fotos/bombinha-close-400.jpg 400w, assets/fotos/bombinha-close-840.jpg 840w" sizes="(max-width: 760px) 96px, 420px" width="1600" height="1000" decoding="async" alt="Close das bombinhas de camarão ao lado do potinho de molho" loading="lazy" />
+          <h3>Bombinha de camarão</h3>
+          <p>Seis bolinhas de camarão em farinha fina e dourada, em volta do potinho de molho claro.</p>
+          <p class="gesto">Toque numa bombinha para molhar no molho.<span class="so-mouse"> Com o mouse, dá para arrastá-la até o potinho.</span></p>
+        </div>
+      </article>
+    </section>
+
+    <section id="cardapio" class="cardapio" aria-labelledby="t-cardapio">
+      <h2 id="t-cardapio" class="rev">Tudo o que vem<br /> para a mesa</h2>
+      <div class="cardapio-grade">
+        <img class="rev" src="assets/fotos/bombinha-3-4-840.jpg" srcset="assets/fotos/bombinha-3-4-400.jpg 400w, assets/fotos/bombinha-3-4-840.jpg 840w, assets/fotos/bombinha-3-4.jpg 1600w" sizes="(max-width: 760px) 60vw, 33vw" width="1600" height="1000" decoding="async" alt="Panela de cobre com seis bombinhas de camarão" loading="lazy" />
+        <table class="rev">
+          <caption class="vh">Pratos da Casa Cobre e o que vem em cada um</caption>
+          <thead class="vh"><tr><th scope="col">Prato</th><th scope="col">O que vem</th><th scope="col">Ver na mesa</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Camarão empanado</th><td>Arroz cremoso, ervilha, cenoura e batata palha</td><td><a href="#p-empanado">Ver na mesa</a></td></tr>
+            <tr><th scope="row">Camarão ao alho</th><td>Molho de alho, lascas de alho e salsinha</td><td><a href="#p-alho">Ver na mesa</a></td></tr>
+            <tr><th scope="row">Bacalhau à Brás</th><td>Ovo cremoso, batata palha, azeitona preta</td><td><a href="#p-bacalhau">Ver na mesa</a></td></tr>
+            <tr><th scope="row">Bombinha de camarão</th><td>Seis unidades e molho claro</td><td><a href="#p-bombinha">Ver na mesa</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="casa" class="casa" aria-labelledby="t-casa">
+      <h2 id="t-casa" class="rev">Por que cobre</h2>
+      <p class="casa-lead rev">O cobre espalha o calor por igual na panela. Por dentro, o inox não reage com o molho.</p>
+      <div class="casa-grade">
+        <figure class="casa-foto rev">
+          <img src="assets/fotos/heroi-3-4-840.jpg" srcset="assets/fotos/heroi-3-4-400.jpg 400w, assets/fotos/heroi-3-4-840.jpg 840w, assets/fotos/heroi-3-4.jpg 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1000" decoding="async" alt="Panela de cobre com camarões empanados sobre a mesa de nogueira" loading="lazy" />
+          <figcaption>A panela vai do fogo para a mesa. Quem pede vê o prato como ele saiu da cozinha.</figcaption>
+        </figure>
+        <div class="casa-lado rev">
+          <div class="casa-tile">
+            <svg viewBox="-100 -72 200 144" aria-hidden="true"><rect x="-98" y="-10" width="36" height="20" rx="10" fill="#2a120c"/><rect x="62" y="-10" width="36" height="20" rx="10" fill="#2a120c"/><circle r="68" fill="#2a120c"/><circle r="55" fill="#c4734f"/><circle r="14" fill="#2a120c"/></svg>
+          </div>
+          <dl>
+            <div><dt>Por fora</dt><dd>Cobre polido</dd></div>
+            <div><dt>Por dentro</dt><dd>Aço inox</dd></div>
+            <div><dt>Alças</dt><dd>Tira rebitada</dd></div>
+            <div><dt>Mesa</dt><dd>Nogueira escura</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservar" class="reservar" aria-labelledby="t-reservar">
+      <form class="cartao rev" id="form-reserva" action="#reservar">
+        <h2 id="t-reservar">Reserve sua mesa</h2>
+        <p class="cartao-end">Rua da Maré, s/n<br />Endereço de demonstração</p>
+        <label for="r-data">Data</label>
+        <input id="r-data" name="data" type="date" required />
+        <label for="r-hora">Horário</label>
+        <input id="r-hora" name="hora" type="time" required />
+        <fieldset class="escolhas">
+          <legend>O que vai pedir</legend>
+          <label><input type="checkbox" name="prato" value="heroi" /><span>Camarão empanado</span></label>
+          <label><input type="checkbox" name="prato" value="alho" /><span>Camarão ao alho</span></label>
+          <label><input type="checkbox" name="prato" value="bacalhau" /><span>Bacalhau à Brás</span></label>
+          <label><input type="checkbox" name="prato" value="bombinha" /><span>Bombinha de camarão</span></label>
+        </fieldset>
+        <label for="r-pessoas">Pessoas</label>
+        <select id="r-pessoas" name="pessoas">
+          <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+        </select>
+        <p class="cartao-nota" id="r-nota">Esta reserva é uma demonstração: nada é enviado.</p>
+        <p class="cartao-ok" id="r-ok" role="status"></p>
+        <button class="botao" type="submit">Reservar mesa</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="postal">
+      <div class="postal-msg">
+        <h2>Até a próxima mesa</h2>
+        <p>A Casa Cobre é uma marca fictícia, criada para mostrar o que um site em 3D pode fazer por um restaurante. Pratos, endereço e reserva são demonstração.</p>
+      </div>
+      <div class="postal-end">
+        <img class="selo" src="assets/fotos/heroi-cima-400.jpg" width="1600" height="1000" decoding="async" alt="Panela de cobre vista de cima" loading="lazy" />
+        <a href="#cardapio">Cardápio</a>
+        <a href="#casa">A casa</a>
+        <a href="#reservar">Reservar</a>
+        <a href="#abertura">Voltar ao início</a>
+      </div>
+      <p class="postal-imp">Casa Cobre, projeto de portfólio. Pratos modelados em 3D no Blender.</p>
+    </div>
+  </footer>
+
+  <script type="importmap">{ "imports": { "three": "./js/vendor/three/three.module.min.js" } }</script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
