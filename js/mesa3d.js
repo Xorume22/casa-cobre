@@ -1803,6 +1803,19 @@ export async function iniciar({ canvas, carga, escolhidos = () => new Set() }) {
     const C = p.est.mat.uniforms.uC.value, dx = q3.x - C.x, dz = q3.z - C.y, rr = Math.hypot(dx, dz);
     return rr > p.cfg.alca ? { p, dx: dx / rr, dz: dz / rr } : null;
   }
+  /* celular: com a panela enchendo a tela as alcas ficam de fora; tocar na borda da panela levanta aquele lado */
+  function bordaSob(x, y) {
+    const k = naParada(), prato = k && PRATOS[k - 1], p = prato && inclinaveis[prato];
+    if (!p || !panelas[prato]) return null;
+    ndc.set((x / W) * 2 - 1, -(y / H) * 2 + 1);
+    raio3d.setFromCamera(ndc, camera);
+    const hit = raio3d.intersectObject(panelas[prato], true)[0];
+    if (!hit) return null;
+    q3.copy(hit.point).applyMatrix4(inv.copy(p.piv.matrixWorld).invert());
+    const C = p.est.mat.uniforms.uC.value, dx = q3.x - C.x, dz = q3.z - C.y, rr = Math.hypot(dx, dz);
+    // so a parede acima do molho e a borda (tocar no molho continua fazendo onda)
+    return rr > p.cfg.borda * 0.75 && q3.y > p.est.ySup + 0.003 ? { p, dx: dx / rr, dz: dz / rr } : null;
+  }
   function tocaCaldo(x, y, forca, empurrar = false) {
     const achou = caldoEm(x, y);
     if (!achou) return false;
@@ -1961,8 +1974,8 @@ export async function iniciar({ canvas, carga, escolhidos = () => new Set() }) {
       if (!CALMO) { const c = camaraoSob(e.clientX, e.clientY); if (c) { pulaCamarao(c); pede(); return; } } // toque num camarao: pula e cai no molho
       if (!CALMO && pontoComida(e.clientX, e.clientY)) { pula(pComida.x, pComida.z); pede(); return; } // toque no bacalhau: pula
       { const bb = !CALMO && bolinhaSob(e.clientX, e.clientY); if (bb) { bomba = bb; if (!bb.seq && mergulho("casa", bb)) som.tok(); pede(); return; } }
-      const a = !CALMO && alcaSob(e.clientX, e.clientY);
-      if (a) { if (a.p.ang < 0.005) a.p.dir.set(a.dx, a.dz); a.p.auto = 0.8; som.tok(); pede(); return; } // toque na alca: inclina e solta
+      const a = !CALMO && (alcaSob(e.clientX, e.clientY) || (TOQUE ? bordaSob(e.clientX, e.clientY) : null));
+      if (a) { if (a.p.ang < 0.005) a.p.dir.set(a.dx, a.dz); a.p.auto = 0.8; som.tok(); pede(); return; } // toque na alca (ou na borda, no celular): inclina e solta
       if (tocaCaldo(e.clientX, e.clientY, 1.6, true) || tocaPanela(e.clientX, e.clientY)) { som.tok(); pede(); return; }
     }
     const n = pratoSob(e.clientX, e.clientY);
@@ -2171,7 +2184,10 @@ export async function iniciar({ canvas, carga, escolhidos = () => new Set() }) {
   const t0 = performance.now();
   if (mesaTex) renderer.initTexture(mesaTex);
   await renderer.compileAsync(scene, camera);
-  const todos = PRATOS.map((p) => carrega(p).catch((e) => console.warn("prato", p, e)));
+  /* o prato heroi baixa sozinho primeiro (a mesa acende com ele); os outros comecam depois, sem disputar a internet do celular */
+  const avisa = (p) => (e) => console.warn("prato", p, e);
+  const heroi = carrega(PRATOS[0]).catch(avisa(PRATOS[0]));
+  const todos = [heroi, ...PRATOS.slice(1).map((p) => heroi.then(() => carrega(p)).catch(avisa(p)))];
   await Promise.race([todos[0], new Promise((ok) => setTimeout(ok, 8000))]);
   canvas.classList.add("pronta");
   monta();
