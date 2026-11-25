@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="t">
+  <title id="t">Casa Cobre — cozinha do mar (marca ficticia para portfolio)</title>
+  <defs>
+    <linearGradient id="cu" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8a27c" />
+      <stop offset="0.5" stop-color="#c4734f" />
+      <stop offset="1" stop-color="#8f4a2e" />
+    </linearGradient>
+  </defs>
+  <!-- simbolo: a panela de cobre vista de cima (a mesma da abertura do site), alcas de tira chata, borda de aco -->
+  <g transform="translate(110 110)">
+    <rect x="-96" y="-9" width="34" height="18" rx="9" fill="url(#cu)" />
+    <rect x="62" y="-9" width="34" height="18" rx="9" fill="url(#cu)" />
+    <circle r="66" fill="url(#cu)" />
+    <circle r="56" fill="#2a120c" />
+    <circle r="56" fill="none" stroke="#d9d4cc" stroke-width="2.5" opacity="0.85" />
+    <!-- coroa: seis caudas em volta do centro -->
+    <g fill="#e8a27c">
+      <path d="M0 -40 l7 14 h-14 z" />
+      <path d="M0 -40 l7 14 h-14 z" transform="rotate(60)" />
+      <path d="M0 -40 l7 14 h-14 z" transform="rotate(120)" />
+      <path d="M0 -40 l7 14 h-14 z" transform="rotate(180)" />
+      <path d="M0 -40 l7 14 h-14 z" transform="rotate(240)" />
+      <path d="M0 -40 l7 14 h-14 z" transform="rotate(300)" />
+    </g>
+    <circle r="9" fill="#e8a27c" />
+  </g>
+  <g font-family="'Cormorant Garamond', Georgia, serif" fill="#f3e7d6">
+    <text x="214" y="118" font-size="72" font-weight="500" letter-spacing="2">Casa Cobre</text>
+    <text x="218" y="160" font-size="24" fill="#c4734f" letter-spacing="1.5">cozinha do mar</text>
+  </g>
+</svg>
