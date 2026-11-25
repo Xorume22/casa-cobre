@@ -89,7 +89,8 @@ main, .rodape { position: relative; z-index: 2; }
 .ficha p:has(+ .gesto) { padding-bottom: 10px; }
 .ficha .gesto { padding-top: 0; font-size: var(--peq); opacity: .72; }
 body.sobre-alca { cursor: grab; }
-@media (pointer: coarse) { .so-mouse { display: none; } } /* no celular, so as dicas de toque */
+.so-toque { display: none; }
+@media (pointer: coarse) { .so-mouse { display: none; } .so-toque { display: inline; } } /* no celular, so as dicas de toque */
 body.arrastando, body.arrastando * { cursor: grabbing !important; user-select: none; }
 
 /* cardapio: tabela empurrada para a direita, foto em repouso a esquerda */
